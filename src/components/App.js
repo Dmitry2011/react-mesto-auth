@@ -98,14 +98,16 @@ function App() {
   }
 
   React.useEffect(()=>{
-    // запрос на сервер за данными о пользователе и карточках
-  Promise.all([api.getUserData(), api.getInitialCards()])
-    .then(([userDataResult, initialCardsResult]) => {
-      setCurrentUser(userDataResult);
-      setCards(initialCardsResult);
-    })
-    .catch((error) => alert(`${error} Не удалось загрузить данные с сервера`));
-  }, []
+    if (loggedIn){
+        // запрос на сервер за данными о пользователе и карточках
+       Promise.all([api.getUserData(), api.getInitialCards()])
+        .then(([userDataResult, initialCardsResult]) => {
+          setCurrentUser(userDataResult);
+          setCards(initialCardsResult);
+        })
+        .catch((error) => alert(`${error} Не удалось загрузить данные с сервера`));
+    }
+  }, [loggedIn]
   )
 
     // функция открытия попап изменения аватар
